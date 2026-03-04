@@ -14,19 +14,11 @@ app.get("/", (req, res) => {
 
 app.use("/api/products", productRoutes);
 
-/* Updated MongoDB connection */
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+/* MongoDB connection */
+mongoose.connect(process.env.MONGO_URI)
 .then(() => {
   console.log("MongoDB Connected");
-
-  app.listen(process.env.PORT || 5000, () => {
-    console.log("Server running on port " + (process.env.PORT || 5000));
-  });
-
 })
-.catch(err => {
-  console.log("Database connection error:", err);
-});
+.catch(err => console.log(err));
+
+module.exports = app;
